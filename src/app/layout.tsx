@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'CV Builder using AI!',
-    description: 'Create your professional CV easily with our AI-powered CV builder.',
+    description: 'sss',
     robots: 'noindex, nofollow',
     icons: {
         icon: '/images/favicon.ico'
