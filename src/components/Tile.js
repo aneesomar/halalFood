@@ -1,4 +1,4 @@
-export default function Tile({ name, description, distance, reviews, image }) {
+export default function Tile({ name, description, distance, reviews, image, rating }) {
     return (
         <div className="flex p-4 border rounded-lg shadow-md">
             {/* Image Section */}
@@ -17,6 +17,7 @@ export default function Tile({ name, description, distance, reviews, image }) {
                 <div className="mt-2 flex justify-between text-sm text-gray-500">
                     <span>{distance} km</span>
                     <span>{reviews} reviews</span>
+                    <span>{rating} ⭐️</span>
                 </div>
             </div>
         </div>
