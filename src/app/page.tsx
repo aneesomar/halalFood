@@ -1,5 +1,8 @@
+import React from 'react';
 import Tile from '../components/Tile';
 import '../app/globals.css';
+import OpenStreetMap from '../components/OpenStreetMap';
+
 
 
 export default function Home() {
@@ -58,8 +61,9 @@ export default function Home() {
 
     return (
         <div className="p-8 space-y-4">
-            <h1 className='title'>Rest Halaal</h1>
 
+            <h1 className='title'>Rest Halaal</h1>
+            <OpenStreetMap />
             {restaurants.map((restaurant, index) => (
                 <Tile
                     key={index}
@@ -73,4 +77,7 @@ export default function Home() {
             ))}
         </div>
     );
-}
+};
+
+
+
