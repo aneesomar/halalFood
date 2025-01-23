@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
-const OpenStreetMap = ({ latitude, longitude }) => {
+const OpenStreetMap = ({ latitude, longitude, addresses }) => {
     const [mapInstance, setMapInstance] = useState(null);
+    const addressList = addresses;
 
     useEffect(() => {
         let map;

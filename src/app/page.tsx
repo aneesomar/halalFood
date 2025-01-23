@@ -10,11 +10,12 @@ export default function Home() {
     //sort restaurants by distance
     const sortedRestaurants = restaurants.sort((a, b) => (b.rating / b.distance) - (a.rating / a.distance));
     const addresses = restaurants.map(restaurant => restaurant.address);
+    console.log(addresses);
 
     return (
         <div className="p-8 space-y-4">
             <h1 className='title'>Rest Halaal</h1>
-            <OpenStreetMap latitude={-33.9221} longitude={18.4231} />
+            <OpenStreetMap latitude={-33.9221} longitude={18.4231} addresses={addresses} />
             {sortedRestaurants.map((restaurant, index) => (
                 <Tile
                     key={index}
