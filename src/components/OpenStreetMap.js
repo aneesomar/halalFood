@@ -3,14 +3,14 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
-const OpenStreetMap = () => {
+const OpenStreetMap = ({ latitude, longitude }) => {
     const [mapInstance, setMapInstance] = useState(null);
 
     useEffect(() => {
         let map;
         import('leaflet')
             .then(L => {
-                map = L.map('map').setView([51.505, -0.09], 13);
+                map = L.map('map').setView([latitude, longitude], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
