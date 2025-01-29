@@ -1,5 +1,7 @@
+'use client'; // Marks this component as a Client Component
 
-import React from 'react';
+
+import React, { useState } from 'react';
 import Tile from '../components/Tile';
 import '../app/globals.css';
 import axios from 'axios';
@@ -21,18 +23,26 @@ export async function getCoordinates(address: string): Promise<Coordinates> {
 }
 
 export default function Home() {
+    const [mapCoordinates, setMapCoordinates] = useState<Coordinates>({ lat: -33.9221, lng: 18.4231 });
+
+    const handleAddressSubmit = async (address: string) => {
+        try {
+            const coordinates = await getCoordinates(address);
+            setMapCoordinates(coordinates);
+        } catch (error) {
+            console.error('Error getting coordinates:', error);
+        }
+    };
+
     //sort restaurants by distance
     const sortedRestaurants = restaurants.sort((a, b) => (b.rating / b.distance) - (a.rating / a.distance));
     const addresses = restaurants.map(restaurant => restaurant.address);
-    getCoordinates(addresses[0]).then(console.log);
-
-
 
     return (
         <div className="p-8 space-y-4">
             <h1 className='title'>Rest Halaal</h1>
-            <Search></Search>
-            <OpenStreetMap latitude={-33.9221} longitude={18.4231} addresses={addresses} />
+            <Search onSubmit={handleAddressSubmit} />
+            <OpenStreetMap latitude={mapCoordinates.lat} longitude={mapCoordinates.lng} addresses={addresses} />
             {sortedRestaurants.map((restaurant, index) => (
                 <Tile
                     key={index}
@@ -46,7 +56,4 @@ export default function Home() {
             ))}
         </div>
     );
-};
-
-
-
+}

@@ -1,11 +1,10 @@
 'use client'; // Marks this component as a Client Component
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
 const OpenStreetMap = ({ latitude, longitude, addresses }) => {
     const [mapInstance, setMapInstance] = useState(null);
-    const addressList = addresses;
 
     useEffect(() => {
         let map;
@@ -28,6 +27,12 @@ const OpenStreetMap = ({ latitude, longitude, addresses }) => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        if (mapInstance) {
+            mapInstance.setView([latitude, longitude], 13);
+        }
+    }, [latitude, longitude, mapInstance]);
 
     return (
         <div>

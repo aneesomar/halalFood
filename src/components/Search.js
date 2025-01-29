@@ -1,8 +1,7 @@
 'use client'; // Marks this component as a Client Component
-import React, { useEffect, useState } from 'react';
-import { getCoordinates } from '@/app/page';
+import React, { useState } from 'react';
 
-const Search = ({ }) => {
+const Search = ({ onSubmit }) => {
     const [address, setAddress] = useState('');
 
     const handleInputChange = (event) => {
@@ -10,14 +9,8 @@ const Search = ({ }) => {
     };
 
     const handleSubmit = async () => {
-        // You can handle the submission logic here
         console.log('Address submitted:', address);
-        try {
-            const coordinates = await getCoordinates(address);
-            console.log('Coordinates:', coordinates);
-        } catch (error) {
-            console.error('Error getting coordinates:', error);
-        }
+        onSubmit(address);
     };
 
     return (
