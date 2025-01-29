@@ -6,7 +6,11 @@
         "reviews": 584,
         "image": "/images/sushi.jpg",
         "rating": 4.5,
-        "address": "58 Burg St, Cape Town City Centre, Cape Town, 8000"
+        "address": "58 Burg St, Cape Town City Centre, Cape Town, 8000",
+        "coords": {
+            "lat": -33.923962,
+            "lng": 18.419300
+        }
     },
     {
         "name": "Hacienda Coastal Mexican",
@@ -15,7 +19,11 @@
         "reviews": 107,
         "image": "/images/paneer-tikka.jpg",
         "rating": 4.1,
-        "address": "92 Bree St, Cape Town City Centre, Cape Town, 8000"
+        "address": "92 Bree St, Cape Town City Centre, Cape Town, 8000",
+        "coords": {
+            "lat": -33.920784,
+            "lng": 18.418371
+        }
     },
     {
         "name": "Mantra Cafe",
@@ -24,6 +32,10 @@
         "reviews": 950,
         "image": "/images/the-magic-of-mantra.jpg",
         "rating": 4.8,
-        "address": "43 Victoria Rd, Camps Bay, Cape Town, 8040"
+        "address": "43 Victoria Rd, Camps Bay, Cape Town, 8040",
+        "coords": {
+            "lat": -33.950839,
+            "lng": 18.378699
+        }
     }
 ]
