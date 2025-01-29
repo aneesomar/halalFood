@@ -3,8 +3,18 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
 const OpenStreetMap = ({ latitude, longitude, addresses }) => {
     const [mapInstance, setMapInstance] = useState(null);
+    const [marker, setMarker] = useState(null);
+
 
     useEffect(() => {
         let map;
@@ -14,6 +24,10 @@ const OpenStreetMap = ({ latitude, longitude, addresses }) => {
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
+                setMapInstance(map);
+
+                const newMarker = L.marker([latitude, longitude]).addTo(map);
+                setMarker(newMarker);
                 setMapInstance(map);
             })
             .catch(error => {
@@ -31,6 +45,12 @@ const OpenStreetMap = ({ latitude, longitude, addresses }) => {
     useEffect(() => {
         if (mapInstance) {
             mapInstance.setView([latitude, longitude], 13);
+            if (marker) {
+                marker.setLatLng([latitude, longitude]);
+            } else {
+                const newMarker = L.marker([latitude, longitude]).addTo(mapInstance);
+                setMarker(newMarker);
+            }
         }
     }, [latitude, longitude, mapInstance]);
 
