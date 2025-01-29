@@ -5,7 +5,7 @@ import '../app/globals.css';
 import axios from 'axios';
 import OpenStreetMap from '../components/OpenStreetMap';
 import restaurants from '../data/rest.json';
-
+import Search from '../components/Search';
 
 const GEOCODING_API_KEY = 'c776efbac3664c868c5f3d79eda72ad3'; // Replace with your OpenCage API key
 
@@ -31,6 +31,7 @@ export default function Home() {
     return (
         <div className="p-8 space-y-4">
             <h1 className='title'>Rest Halaal</h1>
+            <Search></Search>
             <OpenStreetMap latitude={-33.9221} longitude={18.4231} addresses={addresses} />
             {sortedRestaurants.map((restaurant, index) => (
                 <Tile
