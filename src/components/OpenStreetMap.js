@@ -3,12 +3,9 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
-
-
-const OpenStreetMap = ({ latitude, longitude, addresses }) => {
+const OpenStreetMap = ({ latitude, longitude, coordinates }) => {
     const [mapInstance, setMapInstance] = useState(null);
-    const [marker, setMarker] = useState(null);
-
+    const [markers, setMarkers] = useState([]);
 
     useEffect(() => {
         let map;
@@ -26,10 +23,6 @@ const OpenStreetMap = ({ latitude, longitude, addresses }) => {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
                 setMapInstance(map);
-
-                const newMarker = L.marker([latitude, longitude]).addTo(map);
-                setMarker(newMarker);
-                setMapInstance(map);
             })
             .catch(error => {
                 console.error('Error loading Leaflet:', error);
@@ -46,14 +39,11 @@ const OpenStreetMap = ({ latitude, longitude, addresses }) => {
     useEffect(() => {
         if (mapInstance) {
             mapInstance.setView([latitude, longitude], 13);
-            if (marker) {
-                marker.setLatLng([latitude, longitude]);
-            } else {
-                const newMarker = L.marker([latitude, longitude]).addTo(mapInstance);
-                setMarker(newMarker);
-            }
+            markers.forEach(marker => marker.remove());
+            const newMarkers = coordinates.map(coord => L.marker([coord.lat, coord.lng]).addTo(mapInstance));
+            setMarkers(newMarkers);
         }
-    }, [latitude, longitude, mapInstance]);
+    }, [latitude, longitude, coordinates, mapInstance]);
 
     return (
         <div>

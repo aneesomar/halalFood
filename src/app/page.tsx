@@ -1,6 +1,5 @@
 'use client'; // Marks this component as a Client Component
 
-
 import React, { useState } from 'react';
 import Tile from '../components/Tile';
 import '../app/globals.css';
@@ -24,6 +23,7 @@ export async function getCoordinates(address: string): Promise<Coordinates> {
 
 export default function Home() {
     const [mapCoordinates, setMapCoordinates] = useState<Coordinates>({ lat: -33.9221, lng: 18.4231 });
+    const coordinates = restaurants.map(restaurant => restaurant.coords);
 
     const handleAddressSubmit = async (address: string) => {
         try {
@@ -42,7 +42,7 @@ export default function Home() {
         <div className="p-8 space-y-4">
             <h1 className='title'>Rest Halaal</h1>
             <Search onSubmit={handleAddressSubmit} />
-            <OpenStreetMap latitude={mapCoordinates.lat} longitude={mapCoordinates.lng} addresses={addresses} />
+            <OpenStreetMap latitude={mapCoordinates.lat} longitude={mapCoordinates.lng} coordinates={coordinates} />
             {sortedRestaurants.map((restaurant, index) => (
                 <Tile
                     key={index}
