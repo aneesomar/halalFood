@@ -14,7 +14,7 @@ interface Coordinates {
     lng: number;
 }
 
-async function getCoordinates(address: string): Promise<Coordinates> {
+export async function getCoordinates(address: string): Promise<Coordinates> {
     const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${GEOCODING_API_KEY}`);
     const { lat, lng } = response.data.results[0].geometry;
     return { lat, lng };

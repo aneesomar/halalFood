@@ -1,6 +1,6 @@
 'use client'; // Marks this component as a Client Component
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 
 const OpenStreetMap = ({ latitude, longitude, addresses }) => {
