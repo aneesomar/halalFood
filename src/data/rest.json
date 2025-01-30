@@ -37,18 +37,5 @@
             "lat": -33.950839,
             "lng": 18.378699
         }
-    },
-    {
-        "name": "Mantra Cafe",
-        "description": "Delicious mussels and tuna ceviche...",
-        "distance": 5.3,
-        "reviews": 950,
-        "image": "/images/the-magic-of-mantra.jpg",
-        "rating": 4.8,
-        "address": "43 Victoria Rd, Camps Bay, Cape Town, 8040",
-        "coords": {
-            "lat": -33.982106,
-            "lng": 18.504013
-        }
     }
 ]
