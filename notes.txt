@@ -1,0 +1,4 @@
+current goal: connect mongoDb and enable people to submit resturants to the database 
+
+--have more info on tiles such as website of resturant 
+--have tags on tiles such as halal friendly, strictly halal
