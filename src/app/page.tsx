@@ -1,13 +1,13 @@
-'use client'; // Marks this component as a Client Component
+"use client";
 
-import React, { use, useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Tile from '../components/Tile';
 import '../app/globals.css';
 import axios from 'axios';
 import OpenStreetMap from '../components/OpenStreetMap';
-import restaurants from '../data/rest.json';
 import Search from '../components/Search';
-
+import clientPromise from '@/lib/api/mongodb';
 
 const GEOCODING_API_KEY = 'c776efbac3664c868c5f3d79eda72ad3'; // Replace with your OpenCage API key
 
@@ -22,8 +22,6 @@ export async function getCoordinates(address: string): Promise<Coordinates> {
     return { lat, lng };
 }
 
-
-// Haversine formula to calculate the distance between two coordinates
 export const haversineDistance = (coords1: { lat: number, lng: number }, coords2: { lat: number, lng: number }) => {
     const toRad = (value: number) => (value * Math.PI) / 180;
 
@@ -43,7 +41,29 @@ export const haversineDistance = (coords1: { lat: number, lng: number }, coords2
 
 export default function Home() {
     const [mapCoordinates, setMapCoordinates] = useState<Coordinates>({ lat: -33.9221, lng: 18.4231 });
-    const [sortedRestaurants, setSortedRestaurants] = useState(restaurants);
+    interface Restaurant {
+        name: string;
+        description: string;
+        coords: Coordinates;
+        reviews: string[];
+        image: string;
+        rating: number;
+    }
+
+    const [sortedRestaurants, setSortedRestaurants] = useState<Restaurant[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/restaurants');
+                setSortedRestaurants(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleAddressSubmit = async (address: string) => {
         try {
@@ -51,7 +71,7 @@ export default function Home() {
             setMapCoordinates(coordinates);
 
             // Sort restaurants by distance
-            const sorted = [...restaurants].sort((a, b) => {
+            const sorted = [...sortedRestaurants].sort((a, b) => {
                 const distanceA = haversineDistance(coordinates, a.coords);
                 const distanceB = haversineDistance(coordinates, b.coords);
                 return distanceA - distanceB;
@@ -62,7 +82,7 @@ export default function Home() {
         }
     };
 
-    const coordinates = restaurants.map(restaurant => restaurant.coords);
+    const coordinates = sortedRestaurants.map(restaurant => restaurant.coords);
 
     return (
         <div className="p-8 space-y-4">
